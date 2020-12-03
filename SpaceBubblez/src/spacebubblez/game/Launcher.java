@@ -7,4 +7,8 @@ package spacebubblez.game;
 
 public class Launcher {
 
+	public void testoenis() {
+	
+		
+	}
 }
