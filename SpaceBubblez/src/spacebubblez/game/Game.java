@@ -5,28 +5,42 @@
 */
 package spacebubblez.game;
 
-import java.awt.Rectangle;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game {
 	
 	private Display display;
-	private Rectangle rectangle;
+	
+	private List<GameObject> gameObjects;
+	
+	
 	
 	public Game(int width, int height, boolean fullscreen, boolean windowed) {
 		display = new Display(width, height, fullscreen, windowed);
-		rectangle = new Rectangle(0, 0, 50, 50);
+		gameObjects = new ArrayList<>();
+		gameObjects.add(new Entity(200, 200, 10, 20, 10, 0.15, "Harfecald", Color.green));
+		
+		
 	}
 	
 	public void update() {
-		rectangle.setLocation((int) rectangle.getX() + 1, (int) rectangle.getY());
+		gameObjects.forEach(GameObject -> GameObject.update());
+		
 	}
 	
 	public void render() {
 		display.render(this);
+		
+		
+		
 	}
 	
-	public Rectangle getRectangle() {
-		return rectangle;
+	public List<GameObject> getGameObjects() {
+		return gameObjects;
 	}
+	
+	
 
 }

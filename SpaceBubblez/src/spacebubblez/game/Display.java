@@ -11,8 +11,7 @@ import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.geom.Point2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
@@ -53,20 +52,18 @@ public class Display extends JFrame {
 		BufferStrategy bufferStrategy = canvas.getBufferStrategy();
 		Graphics g = bufferStrategy.getDrawGraphics();
 		Graphics2D g2d = (Graphics2D) g;
-		
+				
 		//bg
 		GradientPaint blackToWhite = new GradientPaint(0, 0, Color.white, canvas.getWidth(), canvas.getHeight(), Color.black);
 		g2d.setPaint(blackToWhite);
 		g2d.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		
 		//content
-		Rectangle rectangle = game.getRectangle();
-		g2d.setColor(Color.blue);
-		g2d.fillRect(
-				(int) rectangle.getX(),
-				(int) rectangle.getY(),
-				(int) rectangle.getWidth(),
-				(int) rectangle.getHeight());
+		game.getGameObjects().forEach(GameObject -> g2d.drawImage(
+				GameObject.getSprite(),
+				(int) (GameObject.getPosX() - Math.sqrt(GameObject.mass / Math.PI)),
+				(int) (GameObject.getPosY() - Math.sqrt(GameObject.mass / Math.PI)),
+				null));
 		
 		g2d.dispose();
 		bufferStrategy.show();
