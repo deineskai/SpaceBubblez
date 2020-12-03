@@ -11,6 +11,8 @@ import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
@@ -35,12 +37,14 @@ public class Display extends JFrame {
 		canvas.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
 		canvas.setFocusable(false);
 		
-		canvas.setBackground(Color.black);
+		canvas.setBackground(Color.white);
 		
 		this.add(canvas);
 		this.pack();
 		
 		canvas.createBufferStrategy(3);
+		
+		
 		
 		this.setVisible(true);
 	}
@@ -50,10 +54,19 @@ public class Display extends JFrame {
 		Graphics g = bufferStrategy.getDrawGraphics();
 		Graphics2D g2d = (Graphics2D) g;
 		
-		g2d.setColor(Color.yellow);
-		g2d.fillRect(this.getWidth()/4, canvas.getHeight()/4, canvas.getWidth()/2, canvas.getHeight()/2);
-		g2d.setColor(Color.red);
-		g2d.drawRect(this.getWidth()/4, canvas.getHeight()/4, canvas.getWidth()/2, canvas.getHeight()/2);
+		//bg
+		GradientPaint blackToWhite = new GradientPaint(0, 0, Color.white, canvas.getWidth(), canvas.getHeight(), Color.black);
+		g2d.setPaint(blackToWhite);
+		g2d.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		
+		//content
+		Rectangle rectangle = game.getRectangle();
+		g2d.setColor(Color.blue);
+		g2d.fillRect(
+				(int) rectangle.getX(),
+				(int) rectangle.getY(),
+				(int) rectangle.getWidth(),
+				(int) rectangle.getHeight());
 		
 		g2d.dispose();
 		bufferStrategy.show();
