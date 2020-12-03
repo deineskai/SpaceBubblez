@@ -6,9 +6,9 @@
 package spacebubblez.game;
 
 public class Launcher {
-
-	public void testoenis() {
 	
-		
+	public static void main(String [] args) {
+		new Thread(new GameLoop(new Game(800, 600, false, true))).start();
 	}
+	
 }
