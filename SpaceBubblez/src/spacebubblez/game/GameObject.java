@@ -10,10 +10,13 @@ import java.awt.Image;
 
 public abstract class GameObject {
 	
+	//init
 	protected double posX, posY, mass, size;
 	protected String name;
 	protected Color color;
 	
+	
+	//constructor
 	public GameObject(double posX, double posY, double mass, double size, Color color) {
 		this.posX = posX;
 		this.posY = posY;
@@ -22,12 +25,14 @@ public abstract class GameObject {
 		this.color = color;
 	}
 	
+	
+	//methods
 	public abstract void update();
 	
 	public abstract Image getSprite();
 	
 	
-	
+	//getters & setters
 	public double getPosX() {
 		return posX;
 	}

@@ -7,18 +7,25 @@ package spacebubblez.game;
 
 public class GameLoop implements Runnable {
 	
+	//init
 	private Game game;
 	
 	private boolean running;
+	
 	private final double updateRate = 1.0d/60.0d;
 	
 	private long nextStatTime;
+	
 	private int fps, ups;
 	
+	
+	//constructor
 	public GameLoop(Game game) {
 		this.game = game;
 	}
 
+	
+	//methods
 	@Override
 	public void run() {
 		running = true;
@@ -41,7 +48,6 @@ public class GameLoop implements Runnable {
 			}
 			printStats();
 		}
-		
 	}
 
 	private void printStats() {

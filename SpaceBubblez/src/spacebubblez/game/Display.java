@@ -11,16 +11,18 @@ import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
 public class Display extends JFrame {
 	
+	//init
 	private static final long serialVersionUID = 1L;
 	private Canvas canvas;
 	
+	
+	//constructor
 	public Display(int width, int height, boolean fullscreen, boolean windowed) {
 		this.setTitle("SpaceBubblez!");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -30,24 +32,21 @@ public class Display extends JFrame {
 		if (fullscreen) { this.setExtendedState(MAXIMIZED_BOTH); } else { this.setSize(new Dimension(width, height)); }
 		if (windowed) { this.setUndecorated(false); } else { this.setUndecorated(true); }
 		
-		
-		
 		canvas = new Canvas();
 		canvas.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
 		canvas.setFocusable(false);
-		
 		canvas.setBackground(Color.white);
 		
 		this.add(canvas);
 		this.pack();
 		
-		canvas.createBufferStrategy(3);
-		
-		
+		canvas.createBufferStrategy(3); //rendering next image earlier to prevent flickering
 		
 		this.setVisible(true);
 	}
 	
+	
+	//methods
 	public void render(Game game) {
 		BufferStrategy bufferStrategy = canvas.getBufferStrategy();
 		Graphics g = bufferStrategy.getDrawGraphics();
