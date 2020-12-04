@@ -36,16 +36,17 @@ public class Player extends Entity {
 	
 	public void update() {
 		move();
+		adjustPos();
 	}
 	
 	private void move() {
-		int deltaX = 0, deltaY = 0;
+		double deltaX = 0, deltaY = 0;
 		if (
 				controller.isRequestingUp() && 
 				!controller.isRequestingLeft() && 
 				!controller.isRequestingDown() && 
 				!controller.isRequestingRight()) {
-			deltaY -= this.speed / (1 + mass / 100 * this.slowdown);
+			deltaY -= speed / (1 + mass / 100 * slowdown);
 		} else if (
 				controller.isRequestingUp() && 
 				controller.isRequestingLeft() && 

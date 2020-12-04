@@ -16,7 +16,7 @@ public class GameLoop implements Runnable {
 	
 	private long nextStatTime;
 	
-	private int fps, ups;
+	private int lastFPS, fps, ups;
 	
 	
 	//constructor
@@ -53,6 +53,7 @@ public class GameLoop implements Runnable {
 	private void printStats() {
 		if (System.currentTimeMillis() > nextStatTime) {
 			System.out.println(String.format("FPS: %d, UPS: %d", fps, ups));
+			lastFPS = fps;
 			fps = 0;
 			ups = 0;
 			nextStatTime = System.currentTimeMillis() + 1000;
@@ -60,7 +61,7 @@ public class GameLoop implements Runnable {
 	}
 
 	private void render() {
-		game.render();
+		game.render(lastFPS);
 		fps++;
 	}
 
@@ -68,5 +69,4 @@ public class GameLoop implements Runnable {
 		game.update();
 		ups++;
 	}
-
 }

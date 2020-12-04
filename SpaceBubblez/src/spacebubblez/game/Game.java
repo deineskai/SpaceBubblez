@@ -20,10 +20,10 @@ public class Game {
 	Player player;
 	
 	private static int 
-	entityTransparency = 196;
+	entityTransparency = 223;
 	
 	private static boolean 
-	transparent = true,
+	entityIsTransparent = true,
 	outline = true,
 	glow = true;
 	
@@ -32,23 +32,19 @@ public class Game {
 		input = new Input();
 		display = new Display(width, height, fullscreen, windowed, input);
 		gameObjects = new ArrayList<>();
-		gameObjects.add(new Player(display.getWidth()/2, display.getHeight()/2, 200, 20, 5, 0.6, "Haffeclad", Color.green, new PlayerOneController(input)));
-		gameObjects.add(new Player(display.getWidth()/4, display.getHeight()/4, 100, 20, 5, 0.6, "Huehue", Color.green, new PlayerTwoController(input)));
+		gameObjects.add(new Player(100, 100, 200, 10, 4, 0.15f, "Huffleclud", Color.green, new PlayerOneController(input)));
+		gameObjects.add(new Player(100, 300, 100, 10, 4, 0.15f, "Huehue", Color.green, new PlayerTwoController(input)));
 		
 	}
 	
 	
 	//methods
 	public void update() {
-		
-		gameObjects.forEach(Player -> Player.update());
-		Entity entity = (Entity) gameObjects.get(0);
-		entity.update();
+		gameObjects.forEach(GameObject -> GameObject.update());
 	}
 	
-	public void render() {
-		display.render(this);
-		
+	public void render(int fps) {
+		display.render(this, fps);
 	}
 	
 	
@@ -61,8 +57,8 @@ public class Game {
 		return entityTransparency;
 	}
 	
-	public boolean getTransparent() {
-		return transparent;
+	public boolean entityIsTransparent() {
+		return entityIsTransparent;
 	}
 	
 	public boolean getOutline() {

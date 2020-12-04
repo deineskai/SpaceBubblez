@@ -34,58 +34,77 @@ public class Entity extends GameObject {
 	//methods
 	@Override
 	public void update() {
-		//this.posX += 1;
-		//this.mass +=1;
+	}
+	
+	public void adjustPos() {
+		//left
+		if (this.getPosX() < Math.sqrt(this.getMass() / Math.PI) * this.getSize()) {
+			this.setPosX(Math.sqrt(this.getMass() / Math.PI) * this.getSize());
+		}
+		//top
+		if (this.getPosY() < Math.sqrt(this.getMass() / Math.PI) * this.getSize()) {
+			this.setPosY(Math.sqrt(this.getMass() / Math.PI) * this.getSize());
+		}
+		//right
+		if (this.getPosX() > Launcher.getGame().getDisplay().getCanvas().getWidth() - Math.sqrt(this.getMass() / Math.PI) * this.getSize()) {
+			this.setPosX(Launcher.getGame().getDisplay().getCanvas().getWidth() - Math.sqrt(this.getMass() / Math.PI) * this.getSize());
+		}
+		//bottom
+		if (this.getPosY() > Launcher.getGame().getDisplay().getCanvas().getHeight() - Math.sqrt(this.getMass() / Math.PI) * this.getSize()) {
+			this.setPosY(Launcher.getGame().getDisplay().getCanvas().getHeight() - Math.sqrt(this.getMass() / Math.PI) * this.getSize());
+		}
 	}
 
 	@Override
 	public Image getSprite() {
 		
-		double rds = (int) (Math.sqrt(this.mass / Math.PI));
+		double rds = Math.sqrt(this.mass / Math.PI);
 		double dmtr = 2 * rds;
 		double strk = 0.04; //thickness of outline in opaque mode
 		
 		//create image with size of entity
 		BufferedImage image = new BufferedImage(
-				(int) (dmtr * this.size + edge*2), 
-				(int) (dmtr * this.size + edge*2), 
+				(int) (dmtr * this.size + 1 + edge*2), 
+				(int) (dmtr * this.size + 1 + edge*2), 
 				BufferedImage.TYPE_INT_ARGB); //ARGB for transparency
 		Graphics2D g2d = image.createGraphics();
 		
 		imageSize = image.getWidth();
 		
-		
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); //smooth edges
-		g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
 		g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 		
 		g2d.setFont(new Font("Consolas", 0, 16));
 		
+		
+		//detect graphics settings
 		if (Launcher.getGame().getGlow()) {
 			drawGlow(g2d, dmtr);
 		}
-		
-		if (Launcher.getGame().getTransparent()) {
+		if (Launcher.getGame().entityIsTransparent()) {
 			drawTransparent(g2d, rds, dmtr, strk, Launcher.getGame().getEntityTransparency());
+			if (Launcher.getGame().getOutline()) {
+				drawOutline(g2d, dmtr);
+			}
 		} else drawRegular(g2d, rds, dmtr, strk);
 		
-		if (Launcher.getGame().getOutline()) {
-			drawOutline(g2d, dmtr);
-		}
+		
 		
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF); //turn off for better text quality
 		drawInfo(g2d, rds);
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); 
 		
+		g2d.setColor(Color.red);
+		g2d.drawLine(image.getWidth()/2, 0, image.getWidth()/2, image.getHeight());
+		g2d.drawLine(0, image.getHeight()/2, image.getWidth(), image.getHeight()/2);
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.dispose();
 		return image;
 	}
 	
-	
 	//drawing methods
 	private void drawRegular(Graphics2D g2d, double rds, double dmtr, double strk) {
 		//outer circle
-		g2d.setColor(Util.getColorShade(this.color, 0.87f));
+		g2d.setColor(Util.getColorShade(this.color, 0.7f));
 		g2d.fillOval(
 				edge, 
 				edge, 
@@ -95,8 +114,8 @@ public class Entity extends GameObject {
 		//inner circle
 		g2d.setColor(this.color);
 		g2d.fillOval(
-				(int) (dmtr * this.size * strk/2) + 0, 
-				(int) (dmtr * this.size * strk/2) + 0, 
+				(int) (dmtr * this.size * strk/2) + edge, 
+				(int) (dmtr * this.size * strk/2) + edge, 
 				(int) (dmtr * this.size * (1 - strk)), 
 				(int) (dmtr * this.size * (1 - strk))); 
 		
@@ -141,7 +160,7 @@ public class Entity extends GameObject {
 	
 	private void drawInfo(Graphics2D g2d, double rds) {
 		//draw info
-		if (Launcher.getGame().getTransparent()) {
+		if (Launcher.getGame().entityIsTransparent()) {
 			g2d.setColor(Color.white);
 		} else if (this.color == Color.blue) {
 			g2d.setColor(Color.white);
@@ -161,7 +180,7 @@ public class Entity extends GameObject {
 			//draw as much of the name as possible
 			for (int i = this.name.length(); i > 0; i--) {
 				if (edge + rds * this.size >= g2d.getFontMetrics().stringWidth(this.name.substring(0, i)) / 2 + 5) {
-					g2d.drawString(this.name.substring(0, i), (int) (rds * this.size - g2d.getFontMetrics().stringWidth(this.name.substring(0, i)) / 2), (int) (rds * this.size + 5));
+					g2d.drawString(this.name.substring(0, i), (int) (edge + rds * this.size - g2d.getFontMetrics().stringWidth(this.name.substring(0, i)) / 2), (int) (edge + rds * this.size + 5));
 					i=0;
 				}
 			}
@@ -170,25 +189,7 @@ public class Entity extends GameObject {
 	}
 	
 	
-	
-	
 	//getters & setters	
-	public void setSpeed(double speed) {
-		this.speed = speed;
-	}
-	
-	public double getSpeed() {
-		return speed;
-	}
-	
-	public void setSlowdown(double slowdown) {
-		this.slowdown = slowdown;
-	}
-	
-	public double getSlowdown() {
-		return slowdown;
-	}
-	
 	public static int getImageSize() {
 		return imageSize;
 	}

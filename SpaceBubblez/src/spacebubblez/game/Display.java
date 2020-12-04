@@ -8,9 +8,11 @@ package spacebubblez.game;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
@@ -48,16 +50,18 @@ public class Display extends JFrame {
 	
 	
 	//methods
-	public void render(Game game) {
+	public void render(Game game, int fps) {
 		BufferStrategy bufferStrategy = canvas.getBufferStrategy();
 		Graphics g = bufferStrategy.getDrawGraphics();
 		Graphics2D g2d = (Graphics2D) g;
-				
+		
+			
 		//bg
-		GradientPaint blackToWhite = new GradientPaint(0, 0, Color.white, canvas.getWidth(), canvas.getHeight(), Color.black);
-		g2d.setPaint(blackToWhite);
-		g2d.setColor(Color.black);
+		GradientPaint gra = new GradientPaint(0, 0, new Color(22, 55, 66), 0, canvas.getHeight(), new Color(0, 0, 11));
+		g2d.setPaint(gra);
+		//g2d.setColor(Color.black);
 		g2d.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		
 		
 		//content
 		game.getGameObjects().forEach(Entitiy -> g2d.drawImage(
@@ -65,12 +69,36 @@ public class Display extends JFrame {
 				(int) (Entitiy.getPosX() - Entity.getImageSize() / 2),
 				(int) (Entitiy.getPosY() - Entity.getImageSize() / 2),
 				null));
+		
+		
+		//draw stats
+		g2d.setFont(new Font("Consolas", 0, 15));
+		g2d.setColor(Color.white);
+		g2d.drawString(fps + " fps", 5, 20);
+		
+		
+		/*//print available fonts
+		GraphicsEnvironment ge;  
+	    ge = GraphicsEnvironment.getLocalGraphicsEnvironment(); 
+	    String[] names = ge.getAvailableFontFamilyNames();
+	    Font[] allFonts = ge.getAllFonts();
+	    for(int x=0; x<names.length; x++)
+	        System.out.println(names[x]);
+
+	    for(int x=0; x<allFonts.length; x++){           
+	        System.out.println(allFonts[x].getName());
+	        System.out.println(allFonts[x].getFontName());
+	        System.out.println(allFonts[x].getFamily());
+	        System.out.println(allFonts[x].getPSName());
+	    } */
+		
+		
 		g2d.dispose();
 		bufferStrategy.show();
 	}
 	
-	public double getRadius(double A) {
-		return Math.sqrt(A / Math.PI);
+	public Canvas getCanvas() {
+		return canvas;
 	}
 
 }
