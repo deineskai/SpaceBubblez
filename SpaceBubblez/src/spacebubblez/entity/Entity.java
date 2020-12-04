@@ -60,10 +60,10 @@ public class Entity extends GameObject {
 
 	@Override
 	public Image getSprite() {
-		
 		double rds = Math.sqrt(this.mass / Math.PI);
 		double dmtr = 2 * rds;
 		double strk = 0.04; //thickness of outline in opaque mode
+		
 		
 		//create image with size of entity
 		BufferedImage image = new BufferedImage(
@@ -81,6 +81,7 @@ public class Entity extends GameObject {
 		
 		
 		//detect graphics settings
+		g2d.setStroke(new BasicStroke(2));
 		if (Launcher.getGame().getGlow()) {
 			drawGlow(g2d, dmtr);
 		}
@@ -92,14 +93,13 @@ public class Entity extends GameObject {
 		} else drawRegular(g2d, rds, dmtr, strk);
 		
 		
-		
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF); //turn off for better text quality
 		drawInfo(g2d, rds);
-		
-		g2d.setColor(Color.red);
-		g2d.drawLine(image.getWidth()/2, 0, image.getWidth()/2, image.getHeight());
-		g2d.drawLine(0, image.getHeight()/2, image.getWidth(), image.getHeight()/2);
+		//drawXY(g2d, image);
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		
+		
+		
 		g2d.dispose();
 		return image;
 	}
@@ -191,6 +191,11 @@ public class Entity extends GameObject {
 		}
 	}
 	
+	private void drawXY(Graphics2D g2d, BufferedImage image) {
+		g2d.setColor(Color.red);
+		g2d.drawLine(image.getWidth()/2, 0, image.getWidth()/2, image.getHeight());
+		g2d.drawLine(0, image.getHeight()/2, image.getWidth(), image.getHeight()/2);
+	}
 	
 	//getters & setters	
 	public static int getImageSize() {

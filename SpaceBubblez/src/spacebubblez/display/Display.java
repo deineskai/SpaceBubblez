@@ -13,8 +13,11 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.image.BufferStrategy;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 
 import spacebubblez.entity.Entity;
@@ -26,14 +29,16 @@ public class Display extends JFrame {
 	//init
 	private static final long serialVersionUID = 1L;
 	private Canvas canvas;
+	private boolean drawGrid;
 	
 	
 	//constructor
-	public Display(int width, int height, boolean fullscreen, boolean windowed, Input input) {
+	public Display(int width, int height, boolean fullscreen, boolean windowed, boolean drawGrid, Input input) {
 		this.setTitle("SpaceBubblez!");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setMinimumSize(new Dimension(width, height));
 		this.setLocationRelativeTo(null);
+		this.drawGrid = drawGrid;
 		
 		if (fullscreen) { this.setExtendedState(MAXIMIZED_BOTH); } else { this.setSize(new Dimension(width, height)); }
 		if (windowed) { this.setUndecorated(false); } else { this.setUndecorated(true); }
@@ -59,15 +64,10 @@ public class Display extends JFrame {
 		Graphics g = bufferStrategy.getDrawGraphics();
 		Graphics2D g2d = (Graphics2D) g;
 		
-			
-		//bg
-		GradientPaint gra = new GradientPaint(0, 0, new Color(22, 55, 66), 0, canvas.getHeight(), new Color(0, 0, 11));
-		g2d.setPaint(gra);
-		//g2d.setColor(Color.black);
-		g2d.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		
+		drawBackground(g2d);
 		
 		//content
+		g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
 		game.getGameObjects().forEach(Entitiy -> g2d.drawImage(
 				Entitiy.getSprite(),
 				(int) (Entitiy.getPosX() - Entity.getImageSize() / 2),
@@ -80,8 +80,34 @@ public class Display extends JFrame {
 		g2d.setColor(Color.white);
 		g2d.drawString(fps + " fps", 5, 20);
 		
+		//printFonts();
 		
-		/*//print available fonts
+		g2d.dispose();
+		bufferStrategy.show();
+	}
+	
+	private void drawBackground(Graphics2D g2d) {
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g2d.setColor(Color.darkGray);
+		g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+		GradientPaint grad = new GradientPaint(0, 0, new Color(22, 55, 55), 0, canvas.getHeight(), new Color(27, 22, 11));
+		g2d.setPaint(grad);
+		g2d.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		//draw inner boxes
+		if (this.drawGrid) {
+			g2d.setColor(new Color(17,21,11));
+			int size=60, spacing=3;
+			for (int i = -size/2; i < this.getHeight(); i+=size) {
+				for (int j = -size/2; j < this.getWidth(); j+=size) {
+				g2d.fillRoundRect(j+spacing/2, i+spacing/2, size-spacing, size-spacing, 8, 8);
+				}
+			}
+		}
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+	}
+	
+	private void printFonts() {
+		//print available fonts
 		GraphicsEnvironment ge;  
 	    ge = GraphicsEnvironment.getLocalGraphicsEnvironment(); 
 	    String[] names = ge.getAvailableFontFamilyNames();
@@ -94,11 +120,7 @@ public class Display extends JFrame {
 	        System.out.println(allFonts[x].getFontName());
 	        System.out.println(allFonts[x].getFamily());
 	        System.out.println(allFonts[x].getPSName());
-	    } */
-		
-		
-		g2d.dispose();
-		bufferStrategy.show();
+	    }
 	}
 	
 	public Canvas getCanvas() {

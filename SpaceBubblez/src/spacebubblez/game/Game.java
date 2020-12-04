@@ -27,20 +27,21 @@ public class Game {
 	Player player;
 	
 	private static int 
-	entityTransparency = 223;
+	entityTransparency = 196;
 	
 	private static boolean 
+	drawGrid = false,
 	entityIsTransparent = true,
 	outline = true,
-	glow = true;
+	glow = false;
 	
 	//constructor
 	public Game(int width, int height, boolean fullscreen, boolean windowed) {
 		input = new Input();
-		display = new Display(width, height, fullscreen, windowed, input);
+		display = new Display(width, height, fullscreen, windowed, drawGrid, input);
 		gameObjects = new ArrayList<>();
 		gameObjects.add(new Player(100, 100, 200, 10, 4, 0.15f, "Huffleclud", Color.green, new PlayerOneController(input)));
-		gameObjects.add(new Player(100, 300, 100, 10, 4, 0.15f, "Huehue", Color.green, new PlayerTwoController(input)));
+		gameObjects.add(new Player(100, 300, 200, 10, 4, 0.15f, "Huehue", Color.blue, new PlayerTwoController(input)));
 		
 	}
 	
