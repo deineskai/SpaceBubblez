@@ -72,5 +72,9 @@ public abstract class GameObject {
 	public void setColor(Color color) {
 		this.color = color;
 	}
+	
+	public double getSize() {
+		return size;
+	}
 
 }

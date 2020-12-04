@@ -23,7 +23,7 @@ public class Display extends JFrame {
 	
 	
 	//constructor
-	public Display(int width, int height, boolean fullscreen, boolean windowed) {
+	public Display(int width, int height, boolean fullscreen, boolean windowed, Input input) {
 		this.setTitle("SpaceBubblez!");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setMinimumSize(new Dimension(width, height));
@@ -38,6 +38,7 @@ public class Display extends JFrame {
 		canvas.setBackground(Color.white);
 		
 		this.add(canvas);
+		this.addKeyListener(input);
 		this.pack();
 		
 		canvas.createBufferStrategy(3); //rendering next image earlier to prevent flickering
@@ -55,17 +56,21 @@ public class Display extends JFrame {
 		//bg
 		GradientPaint blackToWhite = new GradientPaint(0, 0, Color.white, canvas.getWidth(), canvas.getHeight(), Color.black);
 		g2d.setPaint(blackToWhite);
+		g2d.setColor(Color.black);
 		g2d.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		
 		//content
-		game.getGameObjects().forEach(GameObject -> g2d.drawImage(
-				GameObject.getSprite(),
-				(int) (GameObject.getPosX() - Math.sqrt(GameObject.mass / Math.PI)),
-				(int) (GameObject.getPosY() - Math.sqrt(GameObject.mass / Math.PI)),
+		game.getGameObjects().forEach(Entitiy -> g2d.drawImage(
+				Entitiy.getSprite(),
+				(int) (Entitiy.getPosX() - Entity.getImageSize() / 2),
+				(int) (Entitiy.getPosY() - Entity.getImageSize() / 2),
 				null));
-		
 		g2d.dispose();
 		bufferStrategy.show();
+	}
+	
+	public double getRadius(double A) {
+		return Math.sqrt(A / Math.PI);
 	}
 
 }
