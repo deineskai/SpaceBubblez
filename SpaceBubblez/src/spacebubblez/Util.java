@@ -3,7 +3,7 @@
 ## Copyright [2020] [deineskai] ##
 ##################################
 */
-package spacebubblez.game;
+package spacebubblez;
 
 import java.awt.Color;
 

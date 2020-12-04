@@ -3,7 +3,10 @@
 ## Copyright [2020] [deineskai] ##
 ##################################
 */
-package spacebubblez.game;
+package spacebubblez;
+
+import spacebubblez.game.Game;
+import spacebubblez.game.GameLoop;
 
 public class Launcher {
 	

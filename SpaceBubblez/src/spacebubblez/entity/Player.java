@@ -3,9 +3,11 @@
 ## Copyright [2020] [deineskai] ##
 ##################################
 */
-package spacebubblez.game;
+package spacebubblez.entity;
 
 import java.awt.Color;
+
+import spacebubblez.controller.Controller;
 
 public class Player extends Entity {
 	

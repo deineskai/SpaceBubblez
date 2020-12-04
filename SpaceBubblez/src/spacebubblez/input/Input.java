@@ -3,7 +3,7 @@
 ## Copyright [2020] [deineskai] ##
 ##################################
 */
-package spacebubblez.game;
+package spacebubblez.input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

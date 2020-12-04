@@ -3,7 +3,7 @@
 ## Copyright [2020] [deineskai] ##
 ##################################
 */
-package spacebubblez.game;
+package spacebubblez.display;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -16,6 +16,10 @@ import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
+
+import spacebubblez.entity.Entity;
+import spacebubblez.game.Game;
+import spacebubblez.input.Input;
 
 public class Display extends JFrame {
 	

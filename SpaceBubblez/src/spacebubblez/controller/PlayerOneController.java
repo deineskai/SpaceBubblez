@@ -3,9 +3,11 @@
 ## Copyright [2020] [deineskai] ##
 ##################################
 */
-package spacebubblez.game;
+package spacebubblez.controller;
 
 import java.awt.event.KeyEvent;
+
+import spacebubblez.input.Input;
 
 public class PlayerOneController implements Controller {
 

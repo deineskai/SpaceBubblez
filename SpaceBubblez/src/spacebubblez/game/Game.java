@@ -9,6 +9,13 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import spacebubblez.controller.PlayerOneController;
+import spacebubblez.controller.PlayerTwoController;
+import spacebubblez.display.Display;
+import spacebubblez.entity.GameObject;
+import spacebubblez.entity.Player;
+import spacebubblez.input.Input;
+
 public class Game {
 	
 	//init
