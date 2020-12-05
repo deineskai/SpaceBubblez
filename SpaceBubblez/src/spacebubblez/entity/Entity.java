@@ -43,7 +43,7 @@ public class Entity extends GameObject {
 	@Override
 	public void update() {
 		move();
-		adjustPos();
+		//adjustPos();
 	}
 	
 	protected void move() {

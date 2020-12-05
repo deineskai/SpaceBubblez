@@ -7,6 +7,7 @@ package spacebubblez.map;
 
 import java.util.Arrays;
 
+import spacebubblez.Config;
 import spacebubblez.core.Size;
 import spacebubblez.gfx.SpriteLibrary;
 
@@ -28,4 +29,14 @@ public class GameMap {
 	public Tile[][] getTiles() {
 		return tiles;
 	}
+	
+	public int getWidth() {
+		return (tiles.length) * Config.SPRITE_SIZE;
+	}
+	
+	public int getHeight() {
+		return tiles[0].length * Config.SPRITE_SIZE;
+	}
+	
+	
 }

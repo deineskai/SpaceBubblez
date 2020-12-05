@@ -29,13 +29,31 @@ public class Camera {
 		this.focusedObject = Optional.of(object);
 	}
 	
-	public void update(State state) {
+	public void update(State state, Display display) {
 		if (focusedObject.isPresent()) {
 			Position objectPosition = focusedObject.get().getPos();
 			
-			this.pos.setX(objectPosition.getX() - size.getWidth()/2);
-			this.pos.setY(objectPosition.getY() - size.getHeight()/2);
+			this.pos.setX(objectPosition.getIntX() - display.getWidth()/2);
+			this.pos.setY(objectPosition.getIntY() - display.getHeight()/2);
+			limitBounds(state, display);
 		}
+	}
+	
+	private void limitBounds(State state, Display display) {
+		if (pos.getIntX() < 0) {
+			pos.setX(0);
+		}
+		if (pos.getIntY() < 0) {
+			pos.setY(0);
+		}
+		
+		if (pos.getX() > state.getGameMap().getWidth() - display.getWidth() + 16) {
+			pos.setX(state.getGameMap().getWidth() - display.getWidth() + 16);
+		}
+		if (pos.getY() > state.getGameMap().getHeight() - display.getHeight() + 39) {
+			pos.setY(state.getGameMap().getHeight() - display.getHeight() + 39);
+		}
+		
 	}
 	
 	public Position getPos() {

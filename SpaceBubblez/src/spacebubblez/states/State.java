@@ -8,6 +8,7 @@ package spacebubblez.states;
 import java.util.ArrayList;
 import java.util.List;
 
+import spacebubblez.Config;
 import spacebubblez.core.Size;
 import spacebubblez.display.Camera;
 import spacebubblez.display.Display;
@@ -28,13 +29,13 @@ public abstract class State {
 		this.input = input;
 		gameObjects = new ArrayList<>();
 		spriteLibrary = new SpriteLibrary();
-		gameMap = new GameMap(new Size(30, 30), spriteLibrary);
+		gameMap = new GameMap(Config.MAP_SIZE, spriteLibrary);
 		camera = new Camera(size);
 	}
 	
-	public void update() {
+	public void update(Display display) {
 		gameObjects.forEach(GameObject -> GameObject.update());
-		camera.update(this);
+		camera.update(this, display);
 	}
 	
 	public List<GameObject> getGameObjects() { return gameObjects; }

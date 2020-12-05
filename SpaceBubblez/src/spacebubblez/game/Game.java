@@ -31,8 +31,8 @@ public class Game {
 	}
 	
 	
-	public void update() {
-		state.update();
+	public void update(Display display) {
+		state.update(display);
 	}
 	
 	public void render(int fps) {

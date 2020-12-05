@@ -5,6 +5,8 @@
 */
 package spacebubblez;
 
+import spacebubblez.core.Size;
+
 public interface Config {
 	
 	boolean 
@@ -21,6 +23,8 @@ public interface Config {
 	entityTransparency = 196,
 	SPRITE_SIZE = 64,
 	TILE_SPACING = 4;
+	
+	Size MAP_SIZE = new Size(90, 48); //tiles
 	
 	
 	
