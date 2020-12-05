@@ -15,6 +15,7 @@ import java.awt.image.BufferedImage;
 
 import spacebubblez.Launcher;
 import spacebubblez.Util;
+import spacebubblez.controller.Controller;
 
 public class Entity extends GameObject {
 	
@@ -23,23 +24,87 @@ public class Entity extends GameObject {
 	private String name;
 	private int edge = 50;
 	private static int imageSize;
+	private Controller controller;
 	
 	
 	//constructor
-	public Entity(double posX, double posY, double mass, double size, double speed, double slowdown, String name, Color color) {
+	public Entity(double posX, double posY, double mass, double size, double speed, double slowdown, String name, Color color, Controller controller) {
 		super(posX, posY, mass, size, color);
 		this.speed = speed;
 		this.slowdown = slowdown;
 		this.name = name;
+		this.controller = controller;
 	}
 	
 	
 	//methods
 	@Override
 	public void update() {
+		move();
+		adjustPos();
 	}
 	
-	public void adjustPos() {
+	protected void move() {
+		double deltaX = 0, deltaY = 0;
+		if (
+				controller.isRequestingUp() && 
+				!controller.isRequestingLeft() && 
+				!controller.isRequestingDown() && 
+				!controller.isRequestingRight()) {
+			deltaY -= speed / (1 + mass / 100 * slowdown);
+		} else if (
+				controller.isRequestingUp() && 
+				controller.isRequestingLeft() && 
+				!controller.isRequestingDown() && 
+				!controller.isRequestingRight()) {
+			deltaX -= Math.sqrt(Math.pow(speed / (1 + mass / 100 * slowdown), 2)/2);
+			deltaY -= Math.sqrt(Math.pow(speed / (1 + mass / 100 * slowdown), 2)/2);
+		} else if (
+				!controller.isRequestingUp() && 
+				controller.isRequestingLeft() && 
+				!controller.isRequestingDown() && 
+				!controller.isRequestingRight()) {
+			deltaX -= speed / (1 + mass / 100 * slowdown);
+		} else if (
+				!controller.isRequestingUp() && 
+				controller.isRequestingLeft() && 
+				controller.isRequestingDown() && 
+				!controller.isRequestingRight()) {
+			deltaX -= Math.sqrt(Math.pow(speed / (1 + mass / 100 * slowdown), 2)/2);
+			deltaY += Math.sqrt(Math.pow(speed / (1 + mass / 100 * slowdown), 2)/2);
+		} else if (
+				!controller.isRequestingUp() && 
+				!controller.isRequestingLeft() && 
+				controller.isRequestingDown() && 
+				!controller.isRequestingRight()) {
+			deltaY += speed / (1 + mass / 100 * slowdown);
+		} else if (
+				!controller.isRequestingUp() && 
+				!controller.isRequestingLeft() && 
+				controller.isRequestingDown() && 
+				controller.isRequestingRight()) {
+			deltaX += Math.sqrt(Math.pow(speed / (1 + mass / 100 * slowdown), 2)/2);
+			deltaY += Math.sqrt(Math.pow(speed / (1 + mass / 100 * slowdown), 2)/2);
+		} else if (
+				!controller.isRequestingUp() && 
+				!controller.isRequestingLeft() && 
+				!controller.isRequestingDown() && 
+				controller.isRequestingRight()) {
+			deltaX += speed / (1 + mass / 100 * slowdown);
+		} else if (
+				controller.isRequestingUp() && 
+				!controller.isRequestingLeft() && 
+				!controller.isRequestingDown() && 
+				controller.isRequestingRight()) {
+			deltaX += Math.sqrt(Math.pow(speed / (1 + mass / 100 * slowdown), 2)/2);
+			deltaY -= Math.sqrt(Math.pow(speed / (1 + mass / 100 * slowdown), 2)/2);
+		}
+		
+		this.posX += deltaX;
+		this.posY += deltaY;
+	}
+	
+	protected void adjustPos() {
 		//left
 		if (this.getPosX() < Math.sqrt(this.getMass() / Math.PI) * this.getSize()) {
 			this.setPosX(Math.sqrt(this.getMass() / Math.PI) * this.getSize());
@@ -103,6 +168,7 @@ public class Entity extends GameObject {
 		g2d.dispose();
 		return image;
 	}
+	
 	
 	//drawing methods
 	private void drawRegular(Graphics2D g2d, double rds, double dmtr, double strk) {
@@ -182,7 +248,7 @@ public class Entity extends GameObject {
 		} else {
 			//draw as much of the name as possible
 			for (int i = this.name.length(); i > 0; i--) {
-				if (edge + rds * this.size >= g2d.getFontMetrics().stringWidth(this.name.substring(0, i)) / 2 + 5) {
+				if (rds * this.size >= g2d.getFontMetrics().stringWidth(this.name.substring(0, i)) / 2 + 5) {
 					g2d.drawString(this.name.substring(0, i), (int) (edge + rds * this.size - g2d.getFontMetrics().stringWidth(this.name.substring(0, i)) / 2), (int) (edge + rds * this.size + 5));
 					i=0;
 				}
@@ -196,6 +262,7 @@ public class Entity extends GameObject {
 		g2d.drawLine(image.getWidth()/2, 0, image.getWidth()/2, image.getHeight());
 		g2d.drawLine(0, image.getHeight()/2, image.getWidth(), image.getHeight()/2);
 	}
+	
 	
 	//getters & setters	
 	public static int getImageSize() {

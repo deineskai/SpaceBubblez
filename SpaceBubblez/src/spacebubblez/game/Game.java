@@ -30,23 +30,30 @@ public class Game {
 	entityTransparency = 196;
 	
 	private static boolean 
-	drawGrid = false,
-	entityIsTransparent = true,
+	multiplayer = true,
+	friendlyFire =false,
+	
+	drawGrid = true,
+	entityIsTransparent = false,
 	outline = true,
-	glow = false;
+	glow = true;
 	
 	//constructor
 	public Game(int width, int height, boolean fullscreen, boolean windowed) {
 		input = new Input();
 		display = new Display(width, height, fullscreen, windowed, drawGrid, input);
 		gameObjects = new ArrayList<>();
-		gameObjects.add(new Player(100, 100, 200, 10, 4, 0.15f, "Huffleclud", Color.green, new PlayerOneController(input)));
-		gameObjects.add(new Player(100, 300, 200, 10, 4, 0.15f, "Huehue", Color.blue, new PlayerTwoController(input)));
 		
+		
+		if (multiplayer) {
+			gameObjects.add(new Player(display.getWidth()*0.25, display.getHeight()/2, 10, 10, 4, 0.15f, "Huffleclud", Color.green, new PlayerOneController(input)));
+			gameObjects.add(new Player(display.getWidth()*0.75, display.getHeight()/2, 10, 10, 4, 0.15f, "Huehue", Color.blue, new PlayerTwoController(input)));
+		} else {
+			gameObjects.add(new Player(display.getWidth()/2, display.getHeight()/2, 10, 10, 4, 0.15f, "Huffleclud", Color.green, new PlayerOneController(input)));
+		}
 	}
 	
 	
-	//methods
 	public void update() {
 		gameObjects.forEach(GameObject -> GameObject.update());
 	}

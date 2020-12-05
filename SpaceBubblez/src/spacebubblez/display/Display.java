@@ -29,6 +29,7 @@ public class Display extends JFrame {
 	//init
 	private static final long serialVersionUID = 1L;
 	private Canvas canvas;
+	private Renderer renderer;
 	private boolean drawGrid;
 	
 	
@@ -39,6 +40,7 @@ public class Display extends JFrame {
 		this.setMinimumSize(new Dimension(width, height));
 		this.setLocationRelativeTo(null);
 		this.drawGrid = drawGrid;
+		this.renderer = new Renderer();
 		
 		if (fullscreen) { this.setExtendedState(MAXIMIZED_BOTH); } else { this.setSize(new Dimension(width, height)); }
 		if (windowed) { this.setUndecorated(false); } else { this.setUndecorated(true); }
@@ -65,23 +67,11 @@ public class Display extends JFrame {
 		Graphics2D g2d = (Graphics2D) g;
 		
 		drawBackground(g2d);
+		renderer.render(game, g2d); //draw content
+		drawStats(g2d, fps);
 		
-		//content
-		g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-		game.getGameObjects().forEach(Entitiy -> g2d.drawImage(
-				Entitiy.getSprite(),
-				(int) (Entitiy.getPosX() - Entity.getImageSize() / 2),
-				(int) (Entitiy.getPosY() - Entity.getImageSize() / 2),
-				null));
-		
-		
-		//draw stats
-		g2d.setFont(new Font("Consolas", 0, 15));
-		g2d.setColor(Color.white);
-		g2d.drawString(fps + " fps", 5, 20);
 		
 		//printFonts();
-		
 		g2d.dispose();
 		bufferStrategy.show();
 	}
@@ -104,6 +94,12 @@ public class Display extends JFrame {
 			}
 		}
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+	}
+	
+	private void drawStats(Graphics2D g2d, int fps) {
+		g2d.setFont(new Font("Consolas", 0, 15));
+		g2d.setColor(Color.white);
+		g2d.drawString(fps + " fps", 5, 20);
 	}
 	
 	private void printFonts() {
