@@ -17,6 +17,7 @@ import spacebubblez.Config;
 import spacebubblez.Launcher;
 import spacebubblez.Util;
 import spacebubblez.controller.Controller;
+import spacebubblez.core.Position;
 
 public class Entity extends GameObject {
 	
@@ -29,8 +30,8 @@ public class Entity extends GameObject {
 	
 	
 	//constructor
-	public Entity(double posX, double posY, double mass, double size, double speed, double slowdown, String name, Color color, Controller controller) {
-		super(posX, posY, mass, size, color);
+	public Entity(Position pos, double mass, double size, double speed, double slowdown, String name, Color color, Controller controller) {
+		super(pos, mass, size, color);
 		this.speed = speed;
 		this.slowdown = slowdown;
 		this.name = name;
@@ -101,26 +102,26 @@ public class Entity extends GameObject {
 			deltaY -= Math.sqrt(Math.pow(speed / (1 + mass / 100 * slowdown), 2)/2);
 		}
 		
-		this.posX += deltaX;
-		this.posY += deltaY;
+		this.getPos().setX(this.getPos().getX() + deltaX);
+		this.getPos().setY(this.getPos().getY() + deltaY);
 	}
 	
 	protected void adjustPos() {
 		//left
-		if (this.getPosX() < Math.sqrt(this.getMass() / Math.PI) * this.getSize()) {
-			this.setPosX(Math.sqrt(this.getMass() / Math.PI) * this.getSize());
+		if (this.getPos().getIntX() < Math.sqrt(this.getMass() / Math.PI) * this.getSize()) {
+			this.getPos().setX(Math.sqrt(this.getMass() / Math.PI) * this.getSize());
 		}
 		//top
-		if (this.getPosY() < Math.sqrt(this.getMass() / Math.PI) * this.getSize()) {
-			this.setPosY(Math.sqrt(this.getMass() / Math.PI) * this.getSize());
+		if (this.getPos().getIntY() < Math.sqrt(this.getMass() / Math.PI) * this.getSize()) {
+			this.getPos().setY(Math.sqrt(this.getMass() / Math.PI) * this.getSize());
 		}
 		//right
-		if (this.getPosX() > Launcher.getGame().getDisplay().getCanvas().getWidth() - Math.sqrt(this.getMass() / Math.PI) * this.getSize()) {
-			this.setPosX(Launcher.getGame().getDisplay().getCanvas().getWidth() - Math.sqrt(this.getMass() / Math.PI) * this.getSize());
+		if (this.getPos().getX() > Launcher.getGame().getDisplay().getCanvas().getWidth() - Math.sqrt(this.getMass() / Math.PI) * this.getSize()) {
+			this.getPos().setX(Launcher.getGame().getDisplay().getCanvas().getWidth() - Math.sqrt(this.getMass() / Math.PI) * this.getSize());
 		}
 		//bottom
-		if (this.getPosY() > Launcher.getGame().getDisplay().getCanvas().getHeight() - Math.sqrt(this.getMass() / Math.PI) * this.getSize()) {
-			this.setPosY(Launcher.getGame().getDisplay().getCanvas().getHeight() - Math.sqrt(this.getMass() / Math.PI) * this.getSize());
+		if (this.getPos().getY() > Launcher.getGame().getDisplay().getCanvas().getHeight() - Math.sqrt(this.getMass() / Math.PI) * this.getSize()) {
+			this.getPos().setY(Launcher.getGame().getDisplay().getCanvas().getHeight() - Math.sqrt(this.getMass() / Math.PI) * this.getSize());
 		}
 	}
 

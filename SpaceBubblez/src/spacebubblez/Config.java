@@ -8,7 +8,7 @@ package spacebubblez;
 public interface Config {
 	
 	boolean 
-	multiplayer=true,
+	multiplayer=false,
 	friendlyFire = false,
 	
 	gridVisible = false,

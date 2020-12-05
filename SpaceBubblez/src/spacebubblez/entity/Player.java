@@ -8,12 +8,12 @@ package spacebubblez.entity;
 import java.awt.Color;
 
 import spacebubblez.controller.Controller;
+import spacebubblez.core.Position;
 
 public class Player extends Entity {
 	
 	public Player(
-			double posX, 
-			double posY, 
+			Position pos,
 			double mass, 
 			double size, 
 			double speed,
@@ -22,8 +22,7 @@ public class Player extends Entity {
 			Color color, 
 			Controller controller) {
 		super(
-				posX, 
-				posY, 
+				pos,
 				mass, 
 				size, 
 				speed, 

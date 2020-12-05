@@ -8,18 +8,20 @@ package spacebubblez.entity;
 import java.awt.Color;
 import java.awt.Image;
 
+import spacebubblez.core.Position;
+
 public abstract class GameObject {
 	
 	//init
-	protected double posX, posY, mass, size;
+	protected Position pos;
+	protected double mass, size;
 	protected String name;
 	protected Color color;
 	
 	
 	//constructor
-	public GameObject(double posX, double posY, double mass, double size, Color color) {
-		this.posX = posX;
-		this.posY = posY;
+	public GameObject(Position pos, double mass, double size, Color color) {
+		this.pos = pos;
 		this.mass = mass;
 		this.size = size;
 		this.color = color;
@@ -33,20 +35,12 @@ public abstract class GameObject {
 	
 	
 	//getters & setters
-	public double getPosX() {
-		return posX;
+	public Position getPos() {
+		return pos;
 	}
 
-	public void setPosX(double posX) {
-		this.posX = posX;
-	}
-
-	public double getPosY() {
-		return posY;
-	}
-
-	public void setPosY(double posY) {
-		this.posY = posY;
+	public void setPosX(Position pos) {
+		this.pos = pos;
 	}
 
 	public double getMass() {
