@@ -18,8 +18,8 @@ import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
-import spacebubblez.game.Game;
 import spacebubblez.input.Input;
+import spacebubblez.states.State;
  
 
 public class Display extends JFrame {
@@ -59,13 +59,13 @@ public class Display extends JFrame {
 	
 	
 	//methods
-	public void render(Game game, int fps) {
+	public void render(State state, int fps) {
 		BufferStrategy bufferStrategy = canvas.getBufferStrategy();
 		Graphics g = bufferStrategy.getDrawGraphics();
 		Graphics2D g2d = (Graphics2D) g;
 		
 		drawBackground(g2d);
-		renderer.render(game, g2d); //draw content
+		renderer.render(state, g2d); //draw content
 		drawStats(g2d, fps);
 		
 		
