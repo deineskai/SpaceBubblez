@@ -18,6 +18,7 @@ import spacebubblez.Launcher;
 import spacebubblez.Util;
 import spacebubblez.controller.Controller;
 import spacebubblez.core.Position;
+import spacebubblez.states.State;
 
 public class Entity extends GameObject {
 	

@@ -32,8 +32,8 @@ public class SpriteLibrary {
 		BufferedImage image = new BufferedImage(Config.SPRITE_SIZE, Config.SPRITE_SIZE, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2d = image.createGraphics();
 		
-		g2d.setColor(Color.black);
-		g2d.drawRect(Config.TILE_SPACING/2, Config.TILE_SPACING/2, Config.SPRITE_SIZE-Config.TILE_SPACING, Config.SPRITE_SIZE-Config.TILE_SPACING);
+		g2d.setColor(new Color(0,0,0,31));
+		g2d.fillRect(Config.TILE_SPACING/2, Config.TILE_SPACING/2, Config.SPRITE_SIZE-Config.TILE_SPACING, Config.SPRITE_SIZE-Config.TILE_SPACING);
 		
 		g2d.dispose();
 		tiles.put("default", image);

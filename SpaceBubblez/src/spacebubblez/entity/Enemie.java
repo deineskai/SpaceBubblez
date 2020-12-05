@@ -5,6 +5,16 @@
 */
 package spacebubblez.entity;
 
-public class Enemie {
+import java.awt.Color;
+
+import spacebubblez.controller.Controller;
+import spacebubblez.core.Position;
+
+public class Enemie extends Entity {
+
+	public Enemie(Position pos, double mass, double size, double speed, double slowdown, String name, Color color,
+			Controller controller) {
+		super(pos, mass, size, speed, slowdown, name, color, controller);
+	}
 
 }

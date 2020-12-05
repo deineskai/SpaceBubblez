@@ -33,6 +33,8 @@ public class Game {
 	
 	public void update(Display display) {
 		state.update(display);
+		//add new enemies & food
+		//state.getGameObjects().get(0).getPos().setX(state.getGameObjects().get(0).getPos().getIntX() + 10);
 	}
 	
 	public void render(int fps) {

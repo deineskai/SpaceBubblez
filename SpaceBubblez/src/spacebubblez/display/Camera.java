@@ -47,11 +47,11 @@ public class Camera {
 			pos.setY(0);
 		}
 		
-		if (pos.getX() > state.getGameMap().getWidth() - display.getWidth() + 16) {
-			pos.setX(state.getGameMap().getWidth() - display.getWidth() + 16);
+		if (pos.getX() > state.getGameMap().getWidth() - display.getCanvas().getWidth()) {
+			pos.setX(state.getGameMap().getWidth() - display.getCanvas().getWidth());
 		}
-		if (pos.getY() > state.getGameMap().getHeight() - display.getHeight() + 39) {
-			pos.setY(state.getGameMap().getHeight() - display.getHeight() + 39);
+		if (pos.getY() > state.getGameMap().getHeight() - display.getCanvas().getHeight()) {
+			pos.setY(state.getGameMap().getHeight() - display.getCanvas().getHeight());
 		}
 		
 	}

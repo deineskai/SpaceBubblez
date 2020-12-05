@@ -24,9 +24,11 @@ public abstract class State {
 	protected SpriteLibrary spriteLibrary;
 	protected Input input;
 	protected Camera camera;
+	protected Size size;
 	
 	public State(Input input, Size size) {
 		this.input = input;
+		this.size = size;
 		gameObjects = new ArrayList<>();
 		spriteLibrary = new SpriteLibrary();
 		gameMap = new GameMap(Config.MAP_SIZE, spriteLibrary);
@@ -36,16 +38,28 @@ public abstract class State {
 	public void update(Display display) {
 		gameObjects.forEach(GameObject -> GameObject.update());
 		camera.update(this, display);
+		sortGameObjects(gameObjects);
 	}
+	
+	private void sortGameObjects(List<GameObject> gameObjects) {
+		List<GameObject> sorted=gameObjects;
+		for (int i = sorted.size(); i > 1; i--) {
+			for (int j = 0; j < i-1; j++) {
+				if (sorted.get(j).getMass() > sorted.get(j+1).getMass()) {
+					GameObject current = sorted.get(j);
+					sorted.set(j, sorted.get(j+1));
+					sorted.set(j+1, current);
+				}
+			}
+		}
+		gameObjects = sorted;
+	}
+	
 	
 	public List<GameObject> getGameObjects() { return gameObjects; }
 	
-	public GameMap getGameMap() {
-		return gameMap;
-	}
+	public GameMap getGameMap() { return gameMap; }
 	
-	public Camera getCamera() {
-		return camera;
-	}
+	public Camera getCamera() { return camera; }
 	
 }
