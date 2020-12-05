@@ -13,16 +13,14 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
-import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.image.BufferStrategy;
 
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 
-import spacebubblez.entity.Entity;
 import spacebubblez.game.Game;
 import spacebubblez.input.Input;
+ 
 
 public class Display extends JFrame {
 	

@@ -20,31 +20,29 @@ public class Game {
 	
 	//init
 	private Display display;
-	
-	private List<GameObject> gameObjects;
-	
 	private Input input;
-	Player player;
 	
 	private static int 
 	entityTransparency = 196;
 	
 	private static boolean 
 	multiplayer = true,
-	friendlyFire =false,
+	friendlyFire = false,
 	
-	drawGrid = true,
-	entityIsTransparent = false,
-	outline = true,
-	glow = true;
+	gridVisible = true,
+	entityIsTransparent = true,
+	outlineVisible = true,
+	glowVisible = true;
+	
+	protected List<GameObject> gameObjects;
+	
 	
 	//constructor
 	public Game(int width, int height, boolean fullscreen, boolean windowed) {
 		input = new Input();
-		display = new Display(width, height, fullscreen, windowed, drawGrid, input);
+		display = new Display(width, height, fullscreen, windowed, gridVisible, input);
+		
 		gameObjects = new ArrayList<>();
-		
-		
 		if (multiplayer) {
 			gameObjects.add(new Player(display.getWidth()*0.25, display.getHeight()/2, 10, 10, 4, 0.15f, "Huffleclud", Color.green, new PlayerOneController(input)));
 			gameObjects.add(new Player(display.getWidth()*0.75, display.getHeight()/2, 10, 10, 4, 0.15f, "Huehue", Color.blue, new PlayerTwoController(input)));
@@ -64,9 +62,7 @@ public class Game {
 	
 	
 	//getters & setters	
-	public List<GameObject> getGameObjects() {
-		return gameObjects;
-	}
+	public List<GameObject> getGameObjects() { return gameObjects; }
 	
 	public int getEntityTransparency() {
 		return entityTransparency;
@@ -77,11 +73,11 @@ public class Game {
 	}
 	
 	public boolean getOutline() {
-		return outline;
+		return outlineVisible;
 	}
 	
 	public boolean getGlow() {
-		return glow;
+		return glowVisible;
 	}
 	
 	public Display getDisplay() {

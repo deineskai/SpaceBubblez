@@ -11,6 +11,7 @@ import java.awt.RenderingHints;
 import spacebubblez.entity.Entity;
 import spacebubblez.game.Game;
 
+
 public class Renderer {
 	
 	public void render(Game game, Graphics2D g2d) {
