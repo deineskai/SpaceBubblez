@@ -18,7 +18,9 @@ public interface Config {
 	
 	
 	int 
-	entityTransparency = 196;
+	entityTransparency = 196,
+	SPRITE_SIZE = 64,
+	TILE_SPACING = 4;
 	
 	
 	

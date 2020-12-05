@@ -64,7 +64,7 @@ public class Display extends JFrame {
 		Graphics g = bufferStrategy.getDrawGraphics();
 		Graphics2D g2d = (Graphics2D) g;
 		
-		drawBackground(g2d);
+		drawBackground(g2d); //basic background
 		renderer.render(state, g2d); //draw content
 		drawStats(g2d, fps);
 		
