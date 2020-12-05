@@ -13,6 +13,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
+import spacebubblez.Config;
 import spacebubblez.Launcher;
 import spacebubblez.Util;
 import spacebubblez.controller.Controller;
@@ -145,14 +146,14 @@ public class Entity extends GameObject {
 		g2d.setFont(new Font("Consolas", 0, 16));
 		
 		
-		//detect graphics settings
+		//detect graphics settings and draw entity
 		g2d.setStroke(new BasicStroke(2));
-		if (Launcher.getGame().getGlow()) {
+		if (Config.glowVisible) {
 			drawGlow(g2d, dmtr);
 		}
-		if (Launcher.getGame().entityIsTransparent()) {
-			drawTransparent(g2d, rds, dmtr, strk, Launcher.getGame().getEntityTransparency());
-			if (Launcher.getGame().getOutline()) {
+		if (Config.entityIsTransparent) {
+			drawTransparent(g2d, rds, dmtr, strk, Config.entityTransparency);
+			if (Config.outlineVisible) {
 				drawOutline(g2d, dmtr);
 			}
 		} else drawRegular(g2d, rds, dmtr, strk);
@@ -160,10 +161,9 @@ public class Entity extends GameObject {
 		
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF); //turn off for better text quality
 		drawInfo(g2d, rds);
-		//drawXY(g2d, image);
-		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
-		
+		//debug
+		if (Config.entityAxesVisible) { drawAxes(g2d, image); }
 		
 		g2d.dispose();
 		return image;
@@ -201,6 +201,7 @@ public class Entity extends GameObject {
 	
 	private void drawOutline(Graphics2D g2d, double dmtr) {
 		//inner circle
+		g2d.setStroke(new BasicStroke(2));
 		g2d.setColor(this.color);
 		g2d.drawOval(
 				edge, 
@@ -229,8 +230,11 @@ public class Entity extends GameObject {
 	
 	private void drawInfo(Graphics2D g2d, double rds) {
 		//draw info
-		if (Launcher.getGame().entityIsTransparent()) {
+		if (Config.entityIsTransparent) {
 			g2d.setColor(Color.white);
+			if (this.color == Color.green && Config.entityTransparency < 127) {
+				g2d.setColor(Color.black);
+			}
 		} else if (this.color == Color.blue) {
 			g2d.setColor(Color.white);
 		} else {
@@ -257,7 +261,7 @@ public class Entity extends GameObject {
 		}
 	}
 	
-	private void drawXY(Graphics2D g2d, BufferedImage image) {
+	private void drawAxes(Graphics2D g2d, BufferedImage image) {
 		g2d.setColor(Color.red);
 		g2d.drawLine(image.getWidth()/2, 0, image.getWidth()/2, image.getHeight());
 		g2d.drawLine(0, image.getHeight()/2, image.getWidth(), image.getHeight()/2);
