@@ -9,8 +9,8 @@ import spacebubblez.Config;
 import spacebubblez.core.Size;
 import spacebubblez.display.Display;
 import spacebubblez.input.Input;
-import spacebubblez.states.GameState;
-import spacebubblez.states.State;
+import spacebubblez.state.GameState;
+import spacebubblez.state.State;
 
 public class Game {
 	

@@ -3,7 +3,7 @@
 ## Copyright [2020] [deineskai] ##
 ##################################
 */
-package spacebubblez.states;
+package spacebubblez.state;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,7 @@ import spacebubblez.core.Size;
 import spacebubblez.display.Camera;
 import spacebubblez.display.Display;
 import spacebubblez.entity.GameObject;
+import spacebubblez.game.Timer;
 import spacebubblez.gfx.SpriteLibrary;
 import spacebubblez.input.Input;
 import spacebubblez.map.GameMap;
@@ -25,6 +26,7 @@ public abstract class State {
 	protected Input input;
 	protected Camera camera;
 	protected Size size;
+	protected Timer timer;
 	
 	public State(Input input, Size size) {
 		this.input = input;
@@ -33,10 +35,11 @@ public abstract class State {
 		spriteLibrary = new SpriteLibrary();
 		gameMap = new GameMap(Config.MAP_SIZE, spriteLibrary);
 		camera = new Camera(size);
+		timer = new Timer();
 	}
 	
 	public void update(Display display) {
-		gameObjects.forEach(GameObject -> GameObject.update());
+		gameObjects.forEach(GameObject -> GameObject.update(this));
 		camera.update(this, display);
 		sortGameObjects(gameObjects);
 	}
@@ -61,5 +64,9 @@ public abstract class State {
 	public GameMap getGameMap() { return gameMap; }
 	
 	public Camera getCamera() { return camera; }
+	
+	public Timer getTimer() {
+		return timer;
+	}
 	
 }

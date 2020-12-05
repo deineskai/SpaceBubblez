@@ -11,7 +11,7 @@ import java.awt.RenderingHints;
 import spacebubblez.Config;
 import spacebubblez.entity.Entity;
 import spacebubblez.map.Tile;
-import spacebubblez.states.State;
+import spacebubblez.state.State;
 
 
 public class Renderer {

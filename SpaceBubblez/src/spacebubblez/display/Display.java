@@ -19,7 +19,7 @@ import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
 
 import spacebubblez.input.Input;
-import spacebubblez.states.State;
+import spacebubblez.state.State;
  
 
 public class Display extends JFrame {

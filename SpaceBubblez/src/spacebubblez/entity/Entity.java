@@ -18,7 +18,7 @@ import spacebubblez.Launcher;
 import spacebubblez.Util;
 import spacebubblez.controller.Controller;
 import spacebubblez.core.Position;
-import spacebubblez.states.State;
+import spacebubblez.state.State;
 
 public class Entity extends GameObject {
 	
@@ -42,7 +42,7 @@ public class Entity extends GameObject {
 	
 	//methods
 	@Override
-	public void update() {
+	public void update(State state) {
 		move();
 		//adjustPos();
 	}

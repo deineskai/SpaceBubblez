@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Image;
 
 import spacebubblez.core.Position;
+import spacebubblez.state.State;
 
 public abstract class GameObject {
 	
@@ -29,7 +30,7 @@ public abstract class GameObject {
 	
 	
 	//methods
-	public abstract void update();
+	public abstract void update(State state);
 	
 	public abstract Image getSprite();
 	

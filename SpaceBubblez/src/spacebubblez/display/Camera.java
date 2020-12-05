@@ -10,7 +10,7 @@ import java.util.Optional;
 import spacebubblez.core.Position;
 import spacebubblez.core.Size;
 import spacebubblez.entity.GameObject;
-import spacebubblez.states.State;
+import spacebubblez.state.State;
 
 public class Camera {
 	

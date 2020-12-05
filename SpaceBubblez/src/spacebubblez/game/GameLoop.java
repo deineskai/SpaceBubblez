@@ -8,11 +8,13 @@ package spacebubblez.game;
 public class GameLoop implements Runnable {
 	
 	//init
+	public static final int UPS = 60;
+	
 	private Game game;
 	
 	private boolean running;
 	
-	private final double updateRate = 1.0d/60.0d;
+	private final double updateRate = 1.0d/UPS;
 	
 	private long nextStatTime;
 	

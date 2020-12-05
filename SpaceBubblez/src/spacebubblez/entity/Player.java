@@ -31,9 +31,5 @@ public class Player extends Entity {
 				color, 
 				controller);
 	}
-	
-	public void update() {
-		super.update();
-	}
 
 }

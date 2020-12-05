@@ -3,7 +3,7 @@
 ## Copyright [2020] [deineskai] ##
 ##################################
 */
-package spacebubblez.states;
+package spacebubblez.state;
 
 import java.awt.Color;
 
