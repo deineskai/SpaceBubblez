@@ -78,7 +78,14 @@ public class Display extends JFrame {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setColor(Color.darkGray);
 		g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
-		GradientPaint grad = new GradientPaint(0, 0, new Color(22, 55, 55), 0, canvas.getHeight(), new Color(27, 22, 11));
+		//adjust gradient points depending on camera pos
+		GradientPaint grad = new GradientPaint(
+				-state.getCamera().getPos().getIntX(), 
+				-state.getCamera().getPos().getIntY(), 
+				new Color(22, 55, 55), 
+				-state.getCamera().getPos().getIntX(), 
+				state.getGameMap().getHeight()-state.getCamera().getPos().getIntY()/3, 
+				new Color(27, 22, 11));
 		g2d.setPaint(grad);
 		g2d.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		//draw inner boxes
