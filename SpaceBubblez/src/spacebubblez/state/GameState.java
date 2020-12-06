@@ -37,13 +37,14 @@ public class GameState extends State {
 			gameObjects.add(p2);
 			gameObjects.add(p2);
 		} else {
-			gameObjects.add(new Player(new Position(Config.MAP_SIZE.getWidth() * Config.SPRITE_SIZE / 2, Config.MAP_SIZE.getHeight() * Config.SPRITE_SIZE / 2), 20, 10, 4, 0.15f, "Huffleclud", Color.green, new PlayerOneController(input)));
+			gameObjects.add(new Player(new Position(Config.MAP_SIZE.getWidth() * Config.SPRITE_SIZE / 2, Config.MAP_SIZE.getHeight() * Config.SPRITE_SIZE / 2), 200, 10, 4, 0.15f, "Huffleclud", Color.green, new PlayerOneController(input)));
 			camera.focusOn(gameObjects.get(0));
 		}
 		
 		//create 
-		for (int i = 0; i < 40; i++) {
-			gameObjects.add(new Enemie(new Position(Config.MAP_SIZE.getWidth() * Config.SPRITE_SIZE / 2 + 250, Config.MAP_SIZE.getHeight() * Config.SPRITE_SIZE / 2 + 20), 5, 5 + Math.random() * 20, 4, 0.15f, "enemie"+i, Color.red, new EnemieController()));
+		for (int i = 0; i < 50; i++) {
+			gameObjects.add(new Enemie(new Position(Config.MAP_SIZE.getWidth() * Config.SPRITE_SIZE * Math.random(), Config.MAP_SIZE.getHeight() * Config.SPRITE_SIZE * Math.random()), 5 + Math.random() * 20, 10, 4, 0.15f, "enemie"+i, Color.red, new EnemieController()));
 		}
+		//camera.focusOn(gameObjects.get(6));
 	}
 }

@@ -14,13 +14,13 @@ public interface Config {
 	friendlyFire = false,
 	
 	gridVisible = false,
-	entityIsTransparent = false,
+	entityIsTransparent = true,
 	outlineVisible = true,
 	glowVisible = true;
 	
 	
 	int 
-	entityTransparency = 196,
+	entityTransparency = 216,
 	SPRITE_SIZE = 64,
 	TILE_SPACING = 4,
 	AI_RANGE = 20;
