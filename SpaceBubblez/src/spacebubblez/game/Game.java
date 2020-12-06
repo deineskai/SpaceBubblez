@@ -20,8 +20,6 @@ public class Game {
 	private State state;
 	
 	
-	
-	
 	//constructor
 	public Game(int width, int height, boolean fullscreen, boolean windowed) {
 		input = new Input();
@@ -31,6 +29,7 @@ public class Game {
 	}
 	
 	
+	//methods
 	public void update(Display display) {
 		state.update(display);
 		//add new enemies & food

@@ -12,4 +12,6 @@ public interface AICondition {
 	
 	boolean isIdling(State state, Enemie currentEnemie);
 
+	
+	
 }

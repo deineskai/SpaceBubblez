@@ -12,24 +12,8 @@ import spacebubblez.core.Position;
 
 public class Player extends Entity {
 	
-	public Player(
-			Position pos,
-			double mass, 
-			double size, 
-			double speed,
-			double slowdown, 
-			String name,
-			Color color, 
-			Controller controller) {
-		super(
-				pos,
-				mass, 
-				size, 
-				speed, 
-				slowdown, 
-				name, 
-				color, 
-				controller);
+	public Player(Position pos, double mass, double size, double speed, double slowdown, String name, Color color, Controller controller) {
+		super(pos, mass, size, speed, slowdown, name, color, controller);
 	}
 
 }

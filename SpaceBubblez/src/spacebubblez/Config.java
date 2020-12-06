@@ -14,7 +14,7 @@ public interface Config {
 	friendlyFire = false,
 	
 	gridVisible = false,
-	entityIsTransparent = true,
+	entityIsTransparent = false,
 	outlineVisible = true,
 	glowVisible = true;
 	

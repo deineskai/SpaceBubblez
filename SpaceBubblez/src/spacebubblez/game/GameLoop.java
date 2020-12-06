@@ -40,7 +40,6 @@ public class GameLoop implements Runnable {
 			double lastRenderTimeInSeconds = (currentTime - lastUpdate) / 1000d;
 			accumulator += lastRenderTimeInSeconds;
 			lastUpdate = currentTime;
-			
 			if (accumulator >= updateRate) {
 				while (accumulator >= updateRate) {
 					update();

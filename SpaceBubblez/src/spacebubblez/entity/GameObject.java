@@ -71,5 +71,4 @@ public abstract class GameObject {
 	public double getSize() {
 		return size;
 	}
-
 }
