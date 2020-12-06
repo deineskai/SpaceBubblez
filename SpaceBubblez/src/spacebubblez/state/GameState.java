@@ -42,8 +42,8 @@ public class GameState extends State {
 		}
 		
 		//create 
-		for (int i = 0; i < 100; i++) {
-			gameObjects.add(new Enemie(new Position(gameMap.getWidth()*Math.random(), gameMap.getHeight()*Math.random()), 5, 10, 4, 0.15f, "enemie"+i, Color.red, new EnemieController()));
+		for (int i = 0; i < 40; i++) {
+			gameObjects.add(new Enemie(new Position(Config.MAP_SIZE.getWidth() * Config.SPRITE_SIZE / 2 + 250, Config.MAP_SIZE.getHeight() * Config.SPRITE_SIZE / 2 + 20), 5, 5 + Math.random() * 20, 4, 0.15f, "enemie"+i, Color.red, new EnemieController()));
 		}
 	}
 }

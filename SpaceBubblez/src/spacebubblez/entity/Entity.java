@@ -171,6 +171,10 @@ public class Entity extends GameObject {
 		return image;
 	}
 	
+	public Controller getController() {
+		return controller;
+	}
+	
 	
 	//drawing methods
 	private void drawRegular(Graphics2D g2d, double rds, double dmtr, double strk) {
@@ -273,6 +277,20 @@ public class Entity extends GameObject {
 	//getters & setters	
 	public static int getImageSize() {
 		return imageSize;
+	}
+	
+	public double getSpeed() {
+		return speed;
+	}
+	
+	@Override
+	public double getMass() {
+		// TODO Auto-generated method stub
+		return super.getMass();
+	}
+	
+	public double getSlowdown() {
+		return slowdown;
 	}
 
 }

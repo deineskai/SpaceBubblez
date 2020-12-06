@@ -64,7 +64,7 @@ public class Display extends JFrame {
 		Graphics g = bufferStrategy.getDrawGraphics();
 		Graphics2D g2d = (Graphics2D) g;
 		
-		drawBackground(g2d); //basic background
+		drawBackground(g2d, state); //basic background
 		renderer.render(state, g2d); //draw content
 		drawStats(g2d, fps);
 		
@@ -74,7 +74,7 @@ public class Display extends JFrame {
 		bufferStrategy.show();
 	}
 	
-	private void drawBackground(Graphics2D g2d) {
+	private void drawBackground(Graphics2D g2d, State state) {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setColor(Color.darkGray);
 		g2d.fillRect(0, 0, this.getWidth(), this.getHeight());

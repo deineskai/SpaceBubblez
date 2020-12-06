@@ -18,6 +18,7 @@ public abstract class AIState {
 	}
 
 	protected abstract AITransition initializeTransiton();
+	
 	public abstract void update(State state, Enemie enemie);
 
 	public boolean shouldTransition(State state, Enemie currentEnemie) {
@@ -26,6 +27,10 @@ public abstract class AIState {
 	
 	public String getNextState() {
 		return transition.getNextState();
+	}
+	
+	public AITransition getAITransition() {
+		return transition;
 	}
 	
 }

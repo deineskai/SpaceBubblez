@@ -60,4 +60,8 @@ public class Camera {
 		return pos;
 	}
 	
+	public Size getSize() {
+		return size;
+	}
+	
 }

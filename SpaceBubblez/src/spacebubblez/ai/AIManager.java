@@ -5,8 +5,9 @@
 */
 package spacebubblez.ai;
 
+import spacebubblez.ai.state.AIAttackState;
 import spacebubblez.ai.state.AIState;
-import spacebubblez.ai.state.Idle;
+import spacebubblez.ai.state.AIIdleState;
 import spacebubblez.entity.Enemie;
 import spacebubblez.state.State;
 
@@ -27,13 +28,15 @@ public class AIManager {
 	}
 
 	private void transitionTo(String nextState) {
+		System.out.println("transitioning to " + nextState);
 		switch (nextState) {
+		case "attack":
+			currentAIState = new AIAttackState();
+			return;
 		case "idle":
-			
-			
 		default:
-			currentAIState = new Idle();
+			currentAIState = new AIIdleState();
 		}
-	}
+	} 
 
 }

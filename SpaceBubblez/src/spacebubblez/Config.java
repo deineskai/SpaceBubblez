@@ -22,7 +22,8 @@ public interface Config {
 	int 
 	entityTransparency = 196,
 	SPRITE_SIZE = 64,
-	TILE_SPACING = 4;
+	TILE_SPACING = 4,
+	AI_RANGE = 20;
 	
 	Size MAP_SIZE = new Size(90, 48); //tiles
 	

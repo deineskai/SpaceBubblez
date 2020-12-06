@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import spacebubblez.Config;
+import spacebubblez.core.Position;
 import spacebubblez.core.Size;
 import spacebubblez.display.Camera;
 import spacebubblez.display.Display;
@@ -67,6 +68,10 @@ public abstract class State {
 	
 	public Timer getTimer() {
 		return timer;
+	}
+
+	public Position getRandomPos() {
+		return gameMap.getRandomPos();
 	}
 	
 }
