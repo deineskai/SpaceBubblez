@@ -16,7 +16,7 @@ public interface Config {
 	gridVisible = false,
 	entityIsTransparent = true,
 	outlineVisible = true,
-	glowVisible = true,
+	glowVisible = false,
 	
 	fullscreen= false,
 	windowed = true;
