@@ -10,7 +10,7 @@ import spacebubblez.game.GameLoop;
 
 public class Launcher {
 	
-	private static Game game = new Game(800, 600, true, false);
+	private static Game game = new Game(800, 600, Config.fullscreen, Config.windowed);
 	
 	public static void main(String [] args) {
 		new Thread(new GameLoop(game)).start();

@@ -5,8 +5,10 @@
 */
 package spacebubblez.display;
 
+import java.awt.Rectangle;
 import java.util.Optional;
 
+import spacebubblez.Config;
 import spacebubblez.core.Position;
 import spacebubblez.core.Size;
 import spacebubblez.entity.GameObject;
@@ -16,6 +18,7 @@ public class Camera {
 	
 	private Position pos;
 	private Size size;
+	private Rectangle viewBounds;
 	
 	private Optional<GameObject> focusedObject;
 	
@@ -25,6 +28,10 @@ public class Camera {
 		this.size = size;
 	}
 	
+	private void calculateViewBounds(Display display) {
+		viewBounds = new Rectangle(pos.getIntX(), pos.getIntY(), display.getWidth(), display.getHeight());
+	}
+
 	public void focusOn(GameObject object) {
 		this.focusedObject = Optional.of(object);
 	}
@@ -36,6 +43,7 @@ public class Camera {
 			this.pos.setX(objectPosition.getIntX() - display.getWidth()/2);
 			this.pos.setY(objectPosition.getIntY() - display.getHeight()/2);
 			limitBounds(state, display);
+			calculateViewBounds(display);
 		}
 	}
 	
@@ -62,6 +70,14 @@ public class Camera {
 	
 	public Size getSize() {
 		return size;
+	}
+
+	public boolean isInView(GameObject gameObject) {
+		return viewBounds.intersects(
+				gameObject.getPos().getX()-gameObject.getRadius(), 
+				gameObject.getPos().getY()-gameObject.getRadius(), 
+				gameObject.getRadius()*2, 
+				gameObject.getRadius()*2);
 	}
 	
 }

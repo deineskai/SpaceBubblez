@@ -10,13 +10,16 @@ import spacebubblez.core.Size;
 public interface Config {
 	
 	boolean 
-	multiplayer=false,
+	multiplayer=true,
 	friendlyFire = false,
 	
 	gridVisible = false,
-	entityIsTransparent = true,
+	entityIsTransparent = false,
 	outlineVisible = true,
-	glowVisible = true;
+	glowVisible = false,
+	
+	fullscreen= false,
+	windowed = true;
 	
 	
 	int 
@@ -25,7 +28,7 @@ public interface Config {
 	TILE_SPACING = 4,
 	AI_RANGE = 20;
 	
-	Size MAP_SIZE = new Size(90, 48); //tiles
+	Size MAP_SIZE = new Size(180, 96); //tiles
 	
 	
 	

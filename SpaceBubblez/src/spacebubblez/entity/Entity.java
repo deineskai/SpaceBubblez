@@ -18,6 +18,7 @@ import spacebubblez.Launcher;
 import spacebubblez.Util;
 import spacebubblez.controller.Controller;
 import spacebubblez.core.Position;
+import spacebubblez.core.Size;
 import spacebubblez.state.State;
 
 public class Entity extends GameObject {
@@ -259,7 +260,10 @@ public class Entity extends GameObject {
 			//draw as much of the name as possible
 			for (int i = this.name.length(); i > 0; i--) {
 				if (rds * this.size >= g2d.getFontMetrics().stringWidth(this.name.substring(0, i)) / 2 + 5) {
-					g2d.drawString(this.name.substring(0, i), (int) (edge + rds * this.size - g2d.getFontMetrics().stringWidth(this.name.substring(0, i)) / 2), (int) (edge + rds * this.size + 5));
+					g2d.drawString(
+							this.name.substring(0, i), 
+							(int) (edge + rds * this.size- g2d.getFontMetrics().stringWidth(this.name.substring(0, i)) / 2), 
+							(int) (edge + rds * this.size + 5));
 					i=0;
 				}
 			}

@@ -28,7 +28,6 @@ public class AIManager {
 	}
 
 	private void transitionTo(String nextState) {
-		System.out.println("transitioning to " + nextState);
 		switch (nextState) {
 		case "attack":
 			currentAIState = new AIAttackState();

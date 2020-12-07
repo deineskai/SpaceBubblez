@@ -20,7 +20,9 @@ public class Renderer {
 		renderMap(state, g2d);
 		Camera camera = state.getCamera();
 		g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-		state.getGameObjects().forEach(Entitiy -> g2d.drawImage(
+		state.getGameObjects().stream()
+			.filter(gameObject -> camera.isInView(gameObject))
+			.forEach(Entitiy -> g2d.drawImage(
 				Entitiy.getSprite(),
 				Entitiy.getPos().getIntX() - Entity.getImageSize() / 2 - camera.getPos().getIntX(),
 				Entitiy.getPos().getIntY() - Entity.getImageSize() / 2 - camera.getPos().getIntY(),

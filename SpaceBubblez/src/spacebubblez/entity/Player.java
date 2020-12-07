@@ -9,6 +9,7 @@ import java.awt.Color;
 
 import spacebubblez.controller.Controller;
 import spacebubblez.core.Position;
+import spacebubblez.core.Size;
 
 public class Player extends Entity {
 	

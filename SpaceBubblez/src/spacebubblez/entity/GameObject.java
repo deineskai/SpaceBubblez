@@ -9,13 +9,15 @@ import java.awt.Color;
 import java.awt.Image;
 
 import spacebubblez.core.Position;
+import spacebubblez.core.Size;
 import spacebubblez.state.State;
 
 public abstract class GameObject {
 	
 	//init
 	protected Position pos;
-	protected double mass, size;
+	protected double mass;
+	protected double size;
 	protected String name;
 	protected Color color;
 	
@@ -70,5 +72,9 @@ public abstract class GameObject {
 	
 	public double getSize() {
 		return size;
+	}
+	
+	public double getRadius() {
+		return Math.sqrt(this.mass / Math.PI) * this.size;
 	}
 }
