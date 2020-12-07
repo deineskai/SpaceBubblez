@@ -9,7 +9,9 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
 import spacebubblez.Config;
+import spacebubblez.core.Position;
 import spacebubblez.entity.Entity;
+import spacebubblez.map.GameMap;
 import spacebubblez.map.Tile;
 import spacebubblez.state.State;
 
@@ -30,12 +32,16 @@ public class Renderer {
 	}
 
 	private void renderMap(State state, Graphics2D g2d) {
-		Tile[][] tiles = state.getGameMap().getTiles();
+		GameMap map = state.getGameMap();
 		Camera camera = state.getCamera();
-		for (int rows = 0; rows < tiles.length; rows++) {
-			for (int cols = 0; cols < tiles[0].length; cols++) {
+		
+		Position start = map.getViewableStartingGridPos(camera);
+		Position end = map.getViewableEndingGridPos(camera);
+		
+		for (int rows = start.getIntX(); rows < end.getIntX(); rows++) {
+			for (int cols = start.getIntY(); cols < end.getIntY(); cols++) {
 				g2d.drawImage(
-						tiles[rows][cols].getSprite(),
+						map.getTiles()[rows][cols].getSprite(),
 						rows * Config.SPRITE_SIZE - camera.getPos().getIntX(),
 						cols * Config.SPRITE_SIZE - camera.getPos().getIntY(),
 						null);

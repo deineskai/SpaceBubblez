@@ -71,6 +71,10 @@ public class Camera {
 	public Size getSize() {
 		return size;
 	}
+	
+	public Size getCurrentViewSize() {
+		return new Size(viewBounds.width, viewBounds.height);
+	}
 
 	public boolean isInView(GameObject gameObject) {
 		return viewBounds.intersects(

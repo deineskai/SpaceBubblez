@@ -52,7 +52,7 @@ public class Display extends JFrame {
 		this.addKeyListener(input);
 		this.pack();
 		
-		canvas.createBufferStrategy(3); //rendering next image earlier to prevent flickering
+		canvas.createBufferStrategy(2); //rendering next image earlier to prevent flickering
 		
 		this.setVisible(true);
 	}

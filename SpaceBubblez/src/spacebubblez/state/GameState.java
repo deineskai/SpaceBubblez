@@ -61,7 +61,7 @@ public class GameState extends State {
 		}
 		camera.focusOn(gameObjects.get(0));
 		
-		initializeEnemies(200);
+		initializeEnemies(100);
 		
 		//camera.focusOn(gameObjects.get(6));
 	}
