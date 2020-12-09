@@ -12,14 +12,15 @@ import spacebubblez.Config;
 import spacebubblez.core.Position;
 import spacebubblez.entity.Entity;
 import spacebubblez.map.GameMap;
-import spacebubblez.map.Tile;
 import spacebubblez.state.State;
 
 
 public class Renderer {
 	
 	public void render(State state, Graphics2D g2d) {
-		renderMap(state, g2d);
+		if (Config.gridVisible) {
+			renderMap(state, g2d);
+		}
 		Camera camera = state.getCamera();
 		g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
 		state.getGameObjects().stream()

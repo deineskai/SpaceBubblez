@@ -79,25 +79,22 @@ public class Display extends JFrame {
 		g2d.setColor(Color.darkGray);
 		g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
 		//adjust gradient points depending on camera pos
-		GradientPaint grad = new GradientPaint(
+		GradientPaint paraGradOne = new GradientPaint(
 				-state.getCamera().getPos().getIntX(), 
 				-state.getCamera().getPos().getIntY(), 
 				new Color(22, 55, 55), 
 				-state.getCamera().getPos().getIntX(), 
 				state.getGameMap().getHeight()-state.getCamera().getPos().getIntY()/3, 
 				new Color(27, 22, 11));
-		g2d.setPaint(grad);
+		GradientPaint paraGradTwo = new GradientPaint(
+				-state.getCamera().getPos().getIntX(), 
+				-state.getCamera().getPos().getIntY()/4, 
+				new Color(22, 55, 55), 
+				-state.getCamera().getPos().getIntX(), 
+				-state.getCamera().getPos().getIntY()/4 + state.getGameMap().getHeight(), 
+				new Color(8, 6, 2));
+		g2d.setPaint(paraGradTwo);
 		g2d.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		//draw inner boxes
-		if (this.drawGrid) {
-			g2d.setColor(new Color(17,21,11));
-			int size=60, spacing=3;
-			for (int i = -size/2; i < this.getHeight(); i+=size) {
-				for (int j = -size/2; j < this.getWidth(); j+=size) {
-				g2d.fillRoundRect(j+spacing/2, i+spacing/2, size-spacing, size-spacing, 8, 8);
-				}
-			}
-		}
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 	}
 	

@@ -8,7 +8,7 @@ package spacebubblez.core;
 public class Position {
 	
 	private double x, y;
-	public static double PROXIMITY_RANGE = 4;
+	public static double PROXIMITY_RANGE = 5;
 	
 	public Position(double x, double y) {
 		this.x = x;

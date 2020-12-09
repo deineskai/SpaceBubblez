@@ -36,7 +36,7 @@ public class SpriteLibrary {
 		//g2d.drawRect(Config.TILE_SPACING/2, Config.TILE_SPACING/2, Config.SPRITE_SIZE-Config.TILE_SPACING, Config.SPRITE_SIZE-Config.TILE_SPACING);
 		
 		
-		g2d.setColor(new Color(0,0,0,31));
+		g2d.setColor(new Color(0,0,0,20));
 		//g2d.setColor(new Color(255,255,255,4));
 		g2d.fillRect(Config.TILE_SPACING/2, Config.TILE_SPACING/2, Config.SPRITE_SIZE-Config.TILE_SPACING, Config.SPRITE_SIZE-Config.TILE_SPACING);
 		

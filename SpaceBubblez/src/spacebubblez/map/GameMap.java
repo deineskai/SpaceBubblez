@@ -43,8 +43,8 @@ public class GameMap {
 	}
 	
 	public Position getRandomPos() {
-		double x = Math.random() * tiles.length * Config.SPRITE_SIZE;
-		double y = Math.random() * tiles[0].length * Config.SPRITE_SIZE;
+		double x = 10 + Math.random() * (tiles.length * Config.SPRITE_SIZE - 20);
+		double y = 10 + Math.random() * (tiles[0].length * Config.SPRITE_SIZE - 20);
 		
 		return new Position(x, y);
 	}

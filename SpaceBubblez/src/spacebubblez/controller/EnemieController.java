@@ -13,31 +13,33 @@ public class EnemieController implements Controller {
 	private boolean down;
 	private boolean left;
 	private boolean right;
+	private boolean shooting;
 
 	@Override
 	public boolean isRequestingUp() {
-		// TODO Auto-generated method stub
 		return up;
 	}
 
 	@Override
 	public boolean isRequestingDown() {
-		// TODO Auto-generated method stub
 		return down;
 	}
 
 	@Override
 	public boolean isRequestingLeft() {
-		// TODO Auto-generated method stub
 		return left;
 	}
 
 	@Override
 	public boolean isRequestingRight() {
-		// TODO Auto-generated method stub
 		return right;
 	}
 
+	@Override
+	public boolean isRequestingShoot() {
+		return shooting;
+	}
+	
 	public void moveToTarget(Position target, Position current) {
         double deltaX = target.getX() - current.getX();
         double deltaY = target.getY() - current.getY();

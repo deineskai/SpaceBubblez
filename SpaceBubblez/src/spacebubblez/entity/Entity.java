@@ -14,11 +14,10 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 import spacebubblez.Config;
-import spacebubblez.Launcher;
 import spacebubblez.Util;
 import spacebubblez.controller.Controller;
+import spacebubblez.controller.EnemieController;
 import spacebubblez.core.Position;
-import spacebubblez.core.Size;
 import spacebubblez.state.State;
 
 public class Entity extends GameObject {
@@ -27,8 +26,10 @@ public class Entity extends GameObject {
 	protected double speed, slowdown;
 	private String name;
 	private int edge = 50;
+	private int lastDir = 0;
 	private static int imageSize;
-	private Controller controller;
+	protected Controller controller;
+	private Position pos;
 	
 	
 	//constructor
@@ -38,16 +39,113 @@ public class Entity extends GameObject {
 		this.slowdown = slowdown;
 		this.name = name;
 		this.controller = controller;
+		this.pos = pos;
 	}
 	
 	
 	//methods
 	@Override
 	public void update(State state) {
+		updateLastDir();
 		move();
-		//adjustPos();
+		adjustPos(state);
+		shoot(state);
+		checkKills(state);
 	}
 	
+	private void updateLastDir() {
+			if (
+					controller.isRequestingUp() && 
+					!controller.isRequestingLeft() && 
+					!controller.isRequestingDown() && 
+					!controller.isRequestingRight()) {
+				lastDir = 0;
+			} else if (
+					controller.isRequestingUp() && 
+					controller.isRequestingLeft() && 
+					!controller.isRequestingDown() && 
+					!controller.isRequestingRight()) {
+				lastDir = 1;
+			} else if (
+					!controller.isRequestingUp() && 
+					controller.isRequestingLeft() && 
+					!controller.isRequestingDown() && 
+					!controller.isRequestingRight()) {
+				lastDir = 2;
+			} else if (
+					!controller.isRequestingUp() && 
+					controller.isRequestingLeft() && 
+					controller.isRequestingDown() && 
+					!controller.isRequestingRight()) {
+				lastDir = 3;
+			} else if (
+					!controller.isRequestingUp() && 
+					!controller.isRequestingLeft() && 
+					controller.isRequestingDown() && 
+					!controller.isRequestingRight()) {
+				lastDir = 4;
+			} else if (
+					!controller.isRequestingUp() && 
+					!controller.isRequestingLeft() && 
+					controller.isRequestingDown() && 
+					controller.isRequestingRight()) {
+				lastDir = 5;
+			} else if (
+					!controller.isRequestingUp() && 
+					!controller.isRequestingLeft() && 
+					!controller.isRequestingDown() && 
+					controller.isRequestingRight()) {
+				lastDir = 6;
+			} else if (
+					controller.isRequestingUp() && 
+					!controller.isRequestingLeft() && 
+					!controller.isRequestingDown() && 
+					controller.isRequestingRight()) {
+				lastDir = 7;
+			}
+	}
+
+	private void shoot(State state) {
+		if (controller.isRequestingShoot() && this.mass >= Config.MIN_SHOOTING_THRESHOLD) {
+			double x, y;
+			if (lastDir == 0) {
+				x = pos.getX() - Util.getRadius(mass, size) * Math.cos(90 * Math.PI / 180f);
+				y = pos.getY() - Util.getRadius(mass, size) * Math.sin(90 * Math.PI / 180f);
+			} else if (lastDir == 1) {
+				x = pos.getX() - Util.getRadius(mass, size) * Math.cos(45 * Math.PI / 180f);
+				y = pos.getY() - Util.getRadius(mass, size) * Math.sin(45 * Math.PI / 180f);
+			} else if (lastDir == 2) {
+				x = pos.getX() - Util.getRadius(mass, size) * Math.cos(0 * Math.PI / 180f);
+				y = pos.getY() - Util.getRadius(mass, size) * Math.sin(0 * Math.PI / 180f);
+			} else if (lastDir == 3) {
+				x = pos.getX() - Util.getRadius(mass, size) * Math.cos(-45 * Math.PI / 180f);
+				y = pos.getY() - Util.getRadius(mass, size) * Math.sin(-45 * Math.PI / 180f);
+			} else if (lastDir == 4) {
+				x = pos.getX() - Util.getRadius(mass, size) * Math.cos(-90 * Math.PI / 180f);
+				y = pos.getY() - Util.getRadius(mass, size) * Math.sin(-90 * Math.PI / 180f);
+			} else if (lastDir == 5) {
+				x = pos.getX() - Util.getRadius(mass, size) * Math.cos(-135 * Math.PI / 180f);
+				y = pos.getY() - Util.getRadius(mass, size) * Math.sin(-135 * Math.PI / 180f);
+			} else if (lastDir == 6) {
+				x = pos.getX() - Util.getRadius(mass, size) * Math.cos(180 * Math.PI / 180f);
+				y = pos.getY() - Util.getRadius(mass, size) * Math.sin(180 * Math.PI / 180f);
+			} else /* dir==7 */ {
+				x = pos.getX() - Util.getRadius(mass, size) * Math.cos(135 * Math.PI / 180f);
+				y = pos.getY() - Util.getRadius(mass, size) * Math.sin(135 * Math.PI / 180f);
+			}
+			state.getGameObjects().add(new Enemie(new Position(x, y), 
+					Config.SHOOTING_MASS, 
+					Config.ENTITY_SIZE, 
+					Config.ENTITY_SPEED, 
+					Config.ENTITY_SLOWDOWN, 
+					"Baby " + this.name, 
+					color, 
+					new EnemieController()));
+			this.mass -= Config.SHOOTING_MASS;
+		}
+		
+	}
+
 	protected void move() {
 		double deltaX = 0, deltaY = 0;
 		if (
@@ -108,25 +206,34 @@ public class Entity extends GameObject {
 		this.getPos().setY(this.getPos().getY() + deltaY);
 	}
 	
-	protected void adjustPos() {
+	protected void adjustPos(State state) {
 		//left
-		if (this.getPos().getIntX() < Math.sqrt(this.getMass() / Math.PI) * this.getSize()) {
-			this.getPos().setX(Math.sqrt(this.getMass() / Math.PI) * this.getSize());
+		if (this.getPos().getIntX()+1 < Math.sqrt(this.getMass() / Math.PI) * this.getSize()) {
+			this.getPos().setX(1+Math.sqrt(this.getMass() / Math.PI) * this.getSize());
 		}
 		//top
-		if (this.getPos().getIntY() < Math.sqrt(this.getMass() / Math.PI) * this.getSize()) {
-			this.getPos().setY(Math.sqrt(this.getMass() / Math.PI) * this.getSize());
+		if (this.getPos().getIntY()+1 < Math.sqrt(this.getMass() / Math.PI) * this.getSize()) {
+			this.getPos().setY(1+Math.sqrt(this.getMass() / Math.PI) * this.getSize());
 		}
 		//right
-		if (this.getPos().getX() > Launcher.getGame().getDisplay().getCanvas().getWidth() - Math.sqrt(this.getMass() / Math.PI) * this.getSize()) {
-			this.getPos().setX(Launcher.getGame().getDisplay().getCanvas().getWidth() - Math.sqrt(this.getMass() / Math.PI) * this.getSize());
+		if (this.getPos().getX() > state.getGameMap().getWidth() - Math.sqrt(this.getMass() / Math.PI) * this.getSize()) {
+			this.getPos().setX(state.getGameMap().getWidth() - Math.sqrt(this.getMass() / Math.PI) * this.getSize());
 		}
 		//bottom
-		if (this.getPos().getY() > Launcher.getGame().getDisplay().getCanvas().getHeight() - Math.sqrt(this.getMass() / Math.PI) * this.getSize()) {
-			this.getPos().setY(Launcher.getGame().getDisplay().getCanvas().getHeight() - Math.sqrt(this.getMass() / Math.PI) * this.getSize());
+		if (this.getPos().getY() > state.getGameMap().getHeight() - Math.sqrt(this.getMass() / Math.PI) * this.getSize()) {
+			this.getPos().setY(state.getGameMap().getHeight() - Math.sqrt(this.getMass() / Math.PI) * this.getSize());
 		}
 	}
 
+	private void checkKills(State state) {
+		for (int i = 0; i < state.getGameObjects().size(); i++) {
+			if (Util.bInsideA(this, state.getGameObjects().get(i)) && state.getGameObjects().get(i) != this) {
+				this.mass += state.getGameObjects().get(i).getMass();
+				state.getGameObjects().remove(i);
+			}
+		}
+	}
+	
 	@Override
 	public Image getSprite() {
 		double rds = Math.sqrt(this.mass / Math.PI);
@@ -175,6 +282,8 @@ public class Entity extends GameObject {
 	public Controller getController() {
 		return controller;
 	}
+	
+	
 	
 	
 	//drawing methods
@@ -247,7 +356,7 @@ public class Entity extends GameObject {
 		} else {
 			g2d.setColor(Color.black);
 		}
-		if (g2d.getFontMetrics().stringWidth(this.name) / 2 + 5 < rds * this.size && g2d.getFontMetrics().stringWidth("mass: " + this.mass) / 2 + 5 < rds * this.size) {
+		if (g2d.getFontMetrics().stringWidth(this.name) / 2 + 5 < rds * this.size && g2d.getFontMetrics().stringWidth("mass: " + (int) this.mass) / 2 + 5 < rds * this.size) {
 			g2d.drawString(
 					this.name, 
 					(int) (edge + rds * this.size - g2d.getFontMetrics().stringWidth(this.name)/2), 
@@ -297,4 +406,9 @@ public class Entity extends GameObject {
 		return slowdown;
 	}
 
+	public void multiplySpeed(double speedMultiplier) {
+		this.speed *= speedMultiplier;
+		
+	}
+	
 }

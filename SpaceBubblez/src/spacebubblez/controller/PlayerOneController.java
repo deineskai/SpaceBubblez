@@ -44,6 +44,13 @@ public class PlayerOneController implements Controller {
 			return true;
 		} else return false;
 	}
+
+	@Override
+	public boolean isRequestingShoot() {
+		if (input.keyPressed(KeyEvent.VK_SPACE)) {
+			return true;
+		} else return false;
+	}
 	
 	
 

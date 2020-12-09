@@ -27,4 +27,10 @@ public class FoodController implements Controller {
 		return false;
 	}
 
+	@Override
+	public boolean isRequestingShoot() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -44,6 +44,13 @@ public class PlayerTwoController implements Controller {
 			return true;
 		} else return false;
 	}
+
+	@Override
+	public boolean isRequestingShoot() {
+		if (input.keyPressed(KeyEvent.VK_ENTER)) {
+			return true;
+		} else return false;
+	}
 	
 	
 
